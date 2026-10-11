@@ -1,4 +1,4 @@
-﻿# ─── Stage 1: Production builder ─────────────────────────────────────────────
+# ─── Stage 1: Production builder ─────────────────────────────────────────────
 FROM node:20 AS builder
 
 WORKDIR /app

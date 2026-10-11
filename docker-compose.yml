@@ -1,4 +1,4 @@
-﻿services:
+services:
   user-backend:
     build:
       context: ./backend

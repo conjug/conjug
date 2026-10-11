@@ -1,4 +1,4 @@
-﻿# ─── Stage 1: Production builder ─────────────────────────────────────────────
+# ─── Stage 1: Production builder ─────────────────────────────────────────────
 FROM python:3.13-slim AS builder
 
 WORKDIR /app
