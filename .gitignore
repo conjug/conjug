@@ -25,6 +25,7 @@ instance/
 # Environments
 .env
 .env.all
+.env.prod
 
 # Pytest cache
 .pytest_cache/

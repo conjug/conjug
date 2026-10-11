@@ -1,0 +1,46 @@
+# Service names are hostnames the code relies on: `mariadb` in backend/config.py
+# and backend/entrypoint.sh, `user-backend` in frontend/nginx.conf.
+services:
+  user-frontend:
+    build:
+      context: ./frontend
+      target: prod
+    depends_on:
+      - user-backend
+    restart: unless-stopped
+
+  user-backend:
+    build:
+      context: ./backend
+      target: builder
+    environment:
+      APP_ENV: production
+      FRONTEND_DOMAIN: ${FRONTEND_DOMAIN:-conjug.fr}
+      SECRET_KEY: ${SECRET_KEY:?}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:?}
+      MYSQL_USER: ${MYSQL_USER:?}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?}
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    restart: unless-stopped
+
+  mariadb:
+    image: mariadb:11.8
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:?}
+      MYSQL_USER: ${MYSQL_USER:?}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?}
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+
+volumes:
+  mariadb_data:
