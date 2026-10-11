@@ -1,30 +1,29 @@
-# conjug.fr
+# Conjug
 
-A french opensource website to revise conjugation in Spanish, and other languages in the future.
+Language web application for practicing Spanish and Italian verb conjugation, with user accounts and a leaderboard. Live at [conjug.fr](https://conjug.fr).
 
-We also plan to implement irregular verbs, and a registration system to save scores and set up a ranking.
+## Repository
 
-## Frontend
+| Path | Content |
+| --- | --- |
+| `frontend/` | React, TypeScript, Vite and Tailwind CSS client, served by nginx |
+| `backend/` | Flask and SQLAlchemy API on MariaDB, served by gunicorn |
+| `admin/` | Administration panel (private submodule) |
 
-The frontend is built with React. To start the development server, navigate to the `Frontend` directory and run:
-
-```bash
-npm install
-npm start
-npm installl qs
-npm install axios
-```
-
-## Backend
-
-The backend is built with Flask. To start the development server, run:
+## Development
 
 ```bash
-python -m Backend.app
+cp .env.exemple .env
+docker compose up --build
 ```
 
-## Images
+The client is served on http://localhost:5173 and the API on http://localhost:5000.
 
-![image](https://user-images.githubusercontent.com/69462822/235483517-5bde266e-b815-4cb9-9cd8-2ec0ebbb683a.png)
+## Production
 
-![image](https://user-images.githubusercontent.com/69462822/234614852-9fa6415c-b730-4633-8322-7612806acfdb.png)
+```bash
+cp .env.prod.exemple .env.prod
+docker compose --env-file .env.prod -f docker-compose.prod.yml up -d --build
+```
+
+The empty variables in `.env.prod` are required. No port is published: route the public domain to `user-frontend` on port 80.
