@@ -17,7 +17,7 @@ export default defineConfig(({ mode }) => {
             strictPort: true,
             proxy: {
                 '/api': {
-                    target: env.VITE_BACKEND_URL || 'https://backend.localhost/api',
+                    target: env.VITE_BACKEND_URL || 'http://user-backend:5000',
                     changeOrigin: true,
                     secure: true,
                 }
