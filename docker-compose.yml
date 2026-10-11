@@ -8,7 +8,6 @@ services:
     ports:
       - "${BACKEND_PORT:-5000}:5000"
     environment:
-      - DATABASE_PORT=${DB_PORT:-3306}
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-example_password}
       - MYSQL_DATABASE=${MYSQL_DATABASE:-name_db}
       - MYSQL_USER=${MYSQL_USER:-user}

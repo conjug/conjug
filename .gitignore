@@ -1,7 +1,6 @@
 #=======================
 # Personal Project
 #=======================
-backend/config.py
 backend/remplir_db.py
 backend/populate_db.py
 
